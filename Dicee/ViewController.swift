@@ -1,16 +1,13 @@
-//
+// This is my First iOS app.
 //  ViewController.swift
 //  Dicee
 //
 //  Created by Jason Dhami on 4/30/18.
 //  Copyright © 2018 Jason Dhami. All rights reserved.
-//
 
 import UIKit
-
 class ViewController: UIViewController {
-    var randomDiceIndex1 : Int = 0
-    var randomDiceIndex2 : Int = 0
+    //array holds the 6 different dice images
     let diceArray = [#imageLiteral(resourceName: "dice1"), #imageLiteral(resourceName: "dice2"), #imageLiteral(resourceName: "dice3"), #imageLiteral(resourceName: "dice4"), #imageLiteral(resourceName: "dice5"), #imageLiteral(resourceName: "dice6")]
     
     @IBOutlet weak var diceImageView1: UIImageView!
@@ -18,7 +15,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        updateDice()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,12 +24,21 @@ class ViewController: UIViewController {
     }
 
     @IBAction func rollButtonPressed(_ sender: UIButton) {
-        randomDiceIndex1 =  Int(arc4random_uniform(6))
-        randomDiceIndex2 = Int(arc4random_uniform(6))
-        
-        diceImageView1.image = diceArray[randomDiceIndex1]
-        diceImageView2.image = diceArray[randomDiceIndex2]
+        updateDice()
     }
     
+    /*
+     Get two random numbers between 0 and 5
+     Update the dice images
+    */
+    func updateDice() {
+        diceImageView1.image = diceArray[Int(arc4random_uniform(6))]
+        diceImageView2.image = diceArray[Int(arc4random_uniform(6))]
+        
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        updateDice()
+    }
 }
 
